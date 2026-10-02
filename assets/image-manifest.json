@@ -1,0 +1,41 @@
+[
+  {
+    "id": "hero-desktop-1",
+    "slot": "hero",
+    "page": "home",
+    "dimensions": {
+      "default": "1920x1080"
+    },
+    "aspectRatio": "16:9",
+    "subject": "Minimal premium desk setup with laptop, keyboard, headphones",
+    "altText": "Omni premium workspace featuring our flagship laptop and headphones",
+    "sourceType": "AI Generated",
+    "filePath": "/images/hero.jpg"
+  },
+  {
+    "id": "product-headphone-1",
+    "slot": "product-main",
+    "page": "product-detail",
+    "dimensions": {
+      "default": "1000x1000"
+    },
+    "aspectRatio": "1:1",
+    "subject": "Over-ear wireless headphones on slate surface",
+    "altText": "Omni over-ear wireless headphones in matte black",
+    "sourceType": "AI Generated",
+    "filePath": "/images/headphone.jpg"
+  },
+  {
+    "id": "product-laptop-1",
+    "slot": "product-main",
+    "page": "product-detail",
+    "dimensions": {
+      "default": "1000x1000"
+    },
+    "aspectRatio": "1:1",
+    "subject": "Ultra-thin laptop on slate surface",
+    "altText": "Omni ultra-thin premium laptop in space grey",
+    "sourceType": "AI Generated",
+    "filePath": "/images/laptop.jpg"
+  }
+]
