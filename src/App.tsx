@@ -6,7 +6,6 @@ import AdminLayout from './layouts/AdminLayout'
 import Home from './pages/storefront/Home'
 import Catalog from './pages/storefront/Catalog'
 import ProductDetail from './pages/storefront/ProductDetail'
-import DesignSystem from './pages/storefront/DesignSystem'
 import Checkout from './pages/storefront/Checkout'
 import Login from './pages/storefront/Login'
 import Account from './pages/storefront/Account'
@@ -39,7 +38,6 @@ function App() {
                 <Route path="checkout" element={<Checkout />} />
                 <Route path="login" element={<Login />} />
                 <Route path="account" element={<Account />} />
-                <Route path="design-system" element={<DesignSystem />} />
               </Route>
               <Route path="/admin" element={<AdminLayout />}>
                 <Route index element={<DashboardHome />} />

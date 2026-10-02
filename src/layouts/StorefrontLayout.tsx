@@ -26,7 +26,6 @@ export default function StorefrontLayout() {
               <Link to="/products" className="text-sm font-medium text-slate-300 hover:text-white transition-colors">Shop</Link>
               <Link to="/products" className="text-sm font-medium text-slate-300 hover:text-white transition-colors">Power Tools</Link>
               <Link to="/products" className="text-sm font-medium text-slate-300 hover:text-white transition-colors">Paint & Supplies</Link>
-              <Link to="/design-system" className="text-sm font-medium text-primary-500 hover:text-primary-400 transition-colors">Design System</Link>
             </nav>
           </div>
 
