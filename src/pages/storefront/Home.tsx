@@ -10,7 +10,7 @@ const featuredProducts = [
   { id: "1", name: "20V MAX Cordless Drill/Driver Kit", slug: "cordless-drill-20v", price: 12900, imageUrl: "/images/power-drill.jpg", category: "Power Tools", isNew: true, stock: 45 },
   { id: "2", name: "Professional Hammer & Wrench Set (16pc)", slug: "hammer-wrench-set-16pc", price: 8900, imageUrl: "/images/hand-tools.jpg", category: "Hand Tools", stock: 120 },
   { id: "3", name: "Premium Interior Paint - Matte Finish (1 Gal)", slug: "premium-interior-paint", price: 4500, originalPrice: 5900, imageUrl: "/images/paint-supplies.jpg", category: "Paint & Supplies", stock: 200 },
-  { id: "4", name: "Heavy Duty Circular Saw 7-1/4\"", slug: "circular-saw-7", price: 15900, imageUrl: "/images/hero.jpg", category: "Power Tools", stock: 18 },
+  { id: "4", name: "Heavy Duty Circular Saw 7-1/4\"", slug: "circular-saw-7", price: 15900, imageUrl: "/images/circular-saw.jpg", category: "Power Tools", stock: 18 },
 ]
 
 export default function Home() {

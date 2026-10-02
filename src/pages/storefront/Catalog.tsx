@@ -11,9 +11,9 @@ const mockCatalog: StorefrontProduct[] = [
   { id: "1", name: "20V MAX Cordless Drill/Driver Kit", slug: "cordless-drill-20v", price: 12900, imageUrl: "/images/power-drill.jpg", category: "Power Tools", isNew: true, stock: 45 },
   { id: "2", name: "Professional Hammer & Wrench Set (16pc)", slug: "hammer-wrench-set-16pc", price: 8900, imageUrl: "/images/hand-tools.jpg", category: "Hand Tools", stock: 120 },
   { id: "3", name: "Premium Interior Paint - Matte Finish (1 Gal)", slug: "premium-interior-paint", price: 4500, originalPrice: 5900, imageUrl: "/images/paint-supplies.jpg", category: "Paint & Supplies", stock: 200 },
-  { id: "4", name: "Heavy Duty Circular Saw 7-1/4\"", slug: "circular-saw-7", price: 15900, imageUrl: "/images/hero.jpg", category: "Power Tools", stock: 18 },
-  { id: "5", name: "100-Piece Screwdriver & Bit Set", slug: "screwdriver-bit-set-100", price: 3400, originalPrice: 4500, imageUrl: "/images/hand-tools.jpg", category: "Hand Tools", stock: 85 },
-  { id: "6", name: "1/2\" PEX Pipe Cutter & Fittings Kit", slug: "pex-pipe-cutter-kit", price: 2900, imageUrl: "/images/power-drill.jpg", category: "Plumbing", stock: 0 },
+  { id: "4", name: "Heavy Duty Circular Saw 7-1/4\"", slug: "circular-saw-7", price: 15900, imageUrl: "/images/circular-saw.jpg", category: "Power Tools", stock: 18 },
+  { id: "5", name: "100-Piece Screwdriver & Bit Set", slug: "screwdriver-bit-set-100", price: 3400, originalPrice: 4500, imageUrl: "/images/screwdriver-set.jpg", category: "Hand Tools", stock: 85 },
+  { id: "6", name: "1/2\" PEX Pipe Cutter & Fittings Kit", slug: "pex-pipe-cutter-kit", price: 2900, imageUrl: "/images/plumbing-kit.jpg", category: "Plumbing", stock: 0 },
   { id: "7", name: "Exterior Weather Shield Paint (5 Gal)", slug: "exterior-weather-shield-5gal", price: 18900, imageUrl: "/images/paint-supplies.jpg", category: "Paint & Supplies", isNew: true, stock: 32 },
   { id: "8", name: "18-Gauge Brad Nailer (Pneumatic)", slug: "brad-nailer-18gauge", price: 9900, imageUrl: "/images/power-drill.jpg", category: "Power Tools", stock: 22 },
 ]
