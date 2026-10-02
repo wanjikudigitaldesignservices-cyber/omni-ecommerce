@@ -1,3 +1,5 @@
+const colors = require('tailwindcss/colors')
+
 /** @type {import('tailwindcss').Config} */
 export default {
     darkMode: ["class"],
@@ -19,8 +21,9 @@ export default {
   				foreground: 'hsl(var(--popover-foreground))'
   			},
   			primary: {
-  				DEFAULT: 'hsl(var(--primary))',
-  				foreground: 'hsl(var(--primary-foreground))'
+  				...colors.yellow,
+  				DEFAULT: colors.yellow[500],
+  				foreground: colors.stone[950]
   			},
   			secondary: {
   				DEFAULT: 'hsl(var(--secondary))',
