@@ -1,4 +1,5 @@
-import { useState, useMemo } from "react"
+import { useState, useMemo, useEffect } from "react"
+import { useSearchParams } from "react-router-dom"
 import { motion } from "framer-motion"
 import { Search, SlidersHorizontal, ChevronLeft, ChevronRight } from "lucide-react"
 import { Input } from "@/components/ui/input"
@@ -16,13 +17,38 @@ const mockCatalog: StorefrontProduct[] = [
   { id: "6", name: "1/2\" PEX Pipe Cutter & Fittings Kit", slug: "pex-pipe-cutter-kit", price: 2900, imageUrl: "/images/plumbing-kit.jpg", category: "Plumbing", stock: 0 },
   { id: "7", name: "Exterior Weather Shield Paint (5 Gal)", slug: "exterior-weather-shield-5gal", price: 18900, imageUrl: "/images/paint-supplies.jpg", category: "Paint & Supplies", isNew: true, stock: 32 },
   { id: "8", name: "18-Gauge Brad Nailer (Pneumatic)", slug: "brad-nailer-18gauge", price: 9900, imageUrl: "/images/power-drill.jpg", category: "Power Tools", stock: 22 },
+  { id: "9", name: "LED Smart Bulb 9W (Warm White)", slug: "led-smart-bulb-9w", price: 1200, imageUrl: "/images/hand-tools.jpg", category: "Electrical", isNew: true, stock: 150 },
+  { id: "10", name: "Modern Crystal Chandelier 6-Light", slug: "modern-crystal-chandelier", price: 34500, imageUrl: "/images/hand-tools.jpg", category: "Electrical", stock: 5 },
+  { id: "11", name: "Double Bowl Stainless Steel Kitchen Sink", slug: "double-bowl-sink", price: 14500, imageUrl: "/images/plumbing-kit.jpg", category: "Plumbing", stock: 12 },
+  { id: "12", name: "Luxury Chrome Rainfall Shower Head", slug: "luxury-rainfall-shower", price: 8900, imageUrl: "/images/plumbing-kit.jpg", category: "Plumbing", stock: 25 },
 ]
 
 export default function Catalog() {
+  const [searchParams, setSearchParams] = useSearchParams()
   const [searchQuery, setSearchQuery] = useState("")
-  const [categoryFilter, setCategoryFilter] = useState("all")
+  const [categoryFilter, setCategoryFilter] = useState(searchParams.get("category") || "all")
   const [sortBy, setSortBy] = useState("featured")
   const [currentPage, setCurrentPage] = useState(1)
+
+  useEffect(() => {
+    const category = searchParams.get("category")
+    if (category) {
+      setCategoryFilter(category)
+    } else {
+      setCategoryFilter("all")
+    }
+  }, [searchParams])
+
+  const handleCategoryChange = (category: string) => {
+    setCategoryFilter(category)
+    if (category === "all") {
+      searchParams.delete("category")
+    } else {
+      searchParams.set("category", category)
+    }
+    setSearchParams(searchParams)
+    setCurrentPage(1)
+  }
   const itemsPerPage = 8
 
   const filteredProducts = useMemo(() => {
@@ -77,8 +103,8 @@ export default function Catalog() {
               className="pl-9 bg-slate-900/50 border-slate-700 text-white"
             />
           </div>
-          <Select value={categoryFilter} onValueChange={setCategoryFilter}>
-            <SelectTrigger className="w-[160px] bg-slate-900/50 border-slate-700 text-white">
+          <Select value={categoryFilter} onValueChange={handleCategoryChange}>
+            <SelectTrigger className="w-[180px] bg-slate-900/50 border-slate-700 text-white">
               <SelectValue placeholder="Category" />
             </SelectTrigger>
             <SelectContent>
@@ -86,6 +112,7 @@ export default function Catalog() {
               <SelectItem value="power tools">Power Tools</SelectItem>
               <SelectItem value="hand tools">Hand Tools</SelectItem>
               <SelectItem value="paint & supplies">Paint & Supplies</SelectItem>
+              <SelectItem value="electrical">Electrical</SelectItem>
               <SelectItem value="plumbing">Plumbing</SelectItem>
             </SelectContent>
           </Select>
@@ -107,7 +134,7 @@ export default function Catalog() {
       {filteredProducts.length === 0 ? (
         <div className="text-center py-32 glass rounded-2xl">
           <p className="text-xl text-slate-400 mb-4">No products found matching your criteria.</p>
-          <Button variant="outline" onClick={() => { setSearchQuery(""); setCategoryFilter("all") }}>
+          <Button variant="outline" onClick={() => { setSearchQuery(""); handleCategoryChange("all") }}>
             Clear Filters
           </Button>
         </div>

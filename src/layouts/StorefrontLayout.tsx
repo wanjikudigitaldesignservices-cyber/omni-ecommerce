@@ -24,8 +24,10 @@ export default function StorefrontLayout() {
             
             <nav className="hidden md:flex items-center gap-6 ml-6">
               <Link to="/products" className="text-sm font-medium text-slate-300 hover:text-white transition-colors">Shop</Link>
-              <Link to="/products" className="text-sm font-medium text-slate-300 hover:text-white transition-colors">Power Tools</Link>
-              <Link to="/products" className="text-sm font-medium text-slate-300 hover:text-white transition-colors">Paint & Supplies</Link>
+              <Link to="/products?category=Power+Tools" className="text-sm font-medium text-slate-300 hover:text-white transition-colors">Power Tools</Link>
+              <Link to="/products?category=Paint+%26+Supplies" className="text-sm font-medium text-slate-300 hover:text-white transition-colors">Paint & Supplies</Link>
+              <Link to="/products?category=Electrical" className="text-sm font-medium text-slate-300 hover:text-white transition-colors">Electrical</Link>
+              <Link to="/products?category=Plumbing" className="text-sm font-medium text-slate-300 hover:text-white transition-colors">Plumbing</Link>
             </nav>
           </div>
 
@@ -61,9 +63,11 @@ export default function StorefrontLayout() {
             <h4 className="font-semibold mb-4 text-white">Shop</h4>
             <ul className="space-y-2 text-sm text-slate-400">
               <li><Link to="/products" className="hover:text-primary-400 transition-colors">All Products</Link></li>
-              <li><Link to="/products" className="hover:text-primary-400 transition-colors">Power Tools</Link></li>
-              <li><Link to="/products" className="hover:text-primary-400 transition-colors">Hand Tools</Link></li>
-              <li><Link to="/products" className="hover:text-primary-400 transition-colors">Paint & Supplies</Link></li>
+              <li><Link to="/products?category=Power+Tools" className="hover:text-primary-400 transition-colors">Power Tools</Link></li>
+              <li><Link to="/products?category=Hand+Tools" className="hover:text-primary-400 transition-colors">Hand Tools</Link></li>
+              <li><Link to="/products?category=Paint+%26+Supplies" className="hover:text-primary-400 transition-colors">Paint & Supplies</Link></li>
+              <li><Link to="/products?category=Electrical" className="hover:text-primary-400 transition-colors">Electrical</Link></li>
+              <li><Link to="/products?category=Plumbing" className="hover:text-primary-400 transition-colors">Plumbing</Link></li>
             </ul>
           </div>
           <div>

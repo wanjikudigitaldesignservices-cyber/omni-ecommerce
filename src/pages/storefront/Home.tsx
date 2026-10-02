@@ -105,7 +105,7 @@ export default function Home() {
       <section className="py-24 bg-slate-900/50">
         <div className="container mx-auto px-4">
           <div className="grid md:grid-cols-2 gap-8">
-            <Link to="/products" className="group relative h-96 rounded-3xl overflow-hidden glass-card">
+            <Link to="/products?category=Power+Tools" className="group relative h-96 rounded-3xl overflow-hidden glass-card">
               <img src="/images/power-drill.jpg" className="absolute inset-0 w-full h-full object-cover transition-transform duration-700 group-hover:scale-105" alt="Power Tools" />
               <div className="absolute inset-0 bg-gradient-to-t from-slate-950 via-slate-950/40 to-transparent" />
               <div className="absolute bottom-0 left-0 p-10">
@@ -115,13 +115,33 @@ export default function Home() {
                 </p>
               </div>
             </Link>
-            <Link to="/products" className="group relative h-96 rounded-3xl overflow-hidden glass-card">
+            <Link to="/products?category=Paint+%26+Supplies" className="group relative h-96 rounded-3xl overflow-hidden glass-card">
               <img src="/images/paint-supplies.jpg" className="absolute inset-0 w-full h-full object-cover transition-transform duration-700 group-hover:scale-105" alt="Paint & Supplies" />
               <div className="absolute inset-0 bg-gradient-to-t from-slate-950 via-slate-950/40 to-transparent" />
               <div className="absolute bottom-0 left-0 p-10">
                 <h3 className="text-3xl font-bold text-white mb-2">Paint & Supplies</h3>
                 <p className="text-slate-300 flex items-center group-hover:text-primary-400 transition-colors">
                   Shop Paint <ArrowRight className="ml-2 h-4 w-4" />
+                </p>
+              </div>
+            </Link>
+            <Link to="/products?category=Electrical" className="group relative h-96 rounded-3xl overflow-hidden glass-card">
+              <img src="/images/hand-tools.jpg" className="absolute inset-0 w-full h-full object-cover transition-transform duration-700 group-hover:scale-105" alt="Electrical" />
+              <div className="absolute inset-0 bg-gradient-to-t from-slate-950 via-slate-950/40 to-transparent" />
+              <div className="absolute bottom-0 left-0 p-10">
+                <h3 className="text-3xl font-bold text-white mb-2">Electrical</h3>
+                <p className="text-slate-300 flex items-center group-hover:text-primary-400 transition-colors">
+                  Shop Electrical <ArrowRight className="ml-2 h-4 w-4" />
+                </p>
+              </div>
+            </Link>
+            <Link to="/products?category=Plumbing" className="group relative h-96 rounded-3xl overflow-hidden glass-card">
+              <img src="/images/plumbing-kit.jpg" className="absolute inset-0 w-full h-full object-cover transition-transform duration-700 group-hover:scale-105" alt="Plumbing" />
+              <div className="absolute inset-0 bg-gradient-to-t from-slate-950 via-slate-950/40 to-transparent" />
+              <div className="absolute bottom-0 left-0 p-10">
+                <h3 className="text-3xl font-bold text-white mb-2">Plumbing</h3>
+                <p className="text-slate-300 flex items-center group-hover:text-primary-400 transition-colors">
+                  Shop Plumbing <ArrowRight className="ml-2 h-4 w-4" />
                 </p>
               </div>
             </Link>
