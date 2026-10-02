@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react"
 import { useParams, Link } from "react-router-dom"
 import { motion } from "framer-motion"
-import { ShoppingCart, Star, Shield, ArrowLeft, Plus, Minus } from "lucide-react"
+import { ShoppingCart, Shield, ArrowLeft } from "lucide-react"
 import { Button } from "@/components/ui/button"
 import { ProductCard, StorefrontProduct } from "@/components/storefront/ProductCard"
 import { Badge } from "@/components/ui/badge"
@@ -15,45 +15,43 @@ import { useCartStore } from "@/lib/cartStore"
 import { SEO } from "@/components/storefront/SEO"
 import { toast } from "sonner"
 
-// Mock product details
 const mockProduct = {
   id: "1",
-  name: "Sony WH-1000XM5 Noise Cancelling Headphones",
-  slug: "sony-wh-1000xm5",
-  description: "Industry-leading noise cancellation with two processors controlling eight microphones. Magnificent sound, engineered to perfection with the new Integrated Processor V1. Crystal clear hands-free calling with 4 beamforming microphones, precise voice pickup, and advanced audio signal processing.",
-  price: 39800, // $398.00
-  images: ["/hero.jpg", "/hero.jpg", "/hero.jpg"],
-  category: "Audio",
+  name: "20V MAX Cordless Drill/Driver Kit",
+  slug: "cordless-drill-20v",
+  description: "Professional-grade 20V MAX lithium-ion cordless drill/driver delivers 300 unit watts of power for heavy-duty applications. Two-speed transmission (0-450 / 0-1500 RPM) for a range of fastening and drilling tasks. Compact, lightweight design fits into tight areas. Includes two batteries, charger, and carrying bag.",
+  price: 12900,
+  images: ["/images/power-drill.jpg", "/images/hand-tools.jpg", "/images/hero.jpg"],
+  category: "Power Tools",
   stock: 45,
-  reviews: { count: 128, average: 4.8 },
+  reviews: { count: 312, average: 4.7 },
   variants: [
-    { id: "v1", name: "Black", price: 39800, stock: 20 },
-    { id: "v2", name: "Silver", price: 39800, stock: 25 },
+    { id: "v1", name: "Standard Kit", price: 12900, stock: 30 },
+    { id: "v2", name: "Pro Kit (w/ Impact Driver)", price: 19900, stock: 15 },
   ],
   features: [
-    "Industry-leading noise cancellation",
-    "30-hour battery life with quick charging",
-    "Ultra-comfortable, lightweight design",
-    "Multipoint connection"
+    "20V MAX lithium-ion battery — 300 UWO of power",
+    "Two-speed transmission (0-450 / 0-1500 RPM)",
+    "1/2\" single-sleeve ratcheting chuck",
+    "Compact design for tight spaces",
+    "LED work light with 20-second trigger release delay",
+    "Includes 2 batteries, charger, and contractor bag"
   ]
 }
 
 const mockRelated: StorefrontProduct[] = [
-  { id: "3", name: "Logitech MX Master 3S", slug: "logitech-mx-master-3s", price: 9900, originalPrice: 12900, imageUrl: "/hero.jpg", category: "Accessories", stock: 120 },
-  { id: "5", name: "Apple AirPods Pro (2nd Gen)", slug: "airpods-pro-2", price: 24900, imageUrl: "/hero.jpg", category: "Audio", stock: 0 },
+  { id: "2", name: "Professional Hammer & Wrench Set (16pc)", slug: "hammer-wrench-set-16pc", price: 8900, imageUrl: "/images/hand-tools.jpg", category: "Hand Tools", stock: 120 },
+  { id: "8", name: "18-Gauge Brad Nailer (Pneumatic)", slug: "brad-nailer-18gauge", price: 9900, imageUrl: "/images/power-drill.jpg", category: "Power Tools", stock: 22 },
 ]
 
 export default function ProductDetail() {
   const { slug } = useParams()
   const addItem = useCartStore(state => state.addItem)
   const [selectedVariant, setSelectedVariant] = useState(mockProduct.variants[0].id)
-  const [selectedImage, setSelectedImage] = useState(0)
   const [quantity, setQuantity] = useState(1)
   const [calculatedPrice, setCalculatedPrice] = useState<{ grand_total: number, discount_total: number } | null>(null)
 
-  // Use the pricing engine to simulate active store-wide discounts
   useEffect(() => {
-    // E.g. A storewide 10% off sale
     const mockDiscounts = [
       { id: 'sale1', type: 'percentage' as const, value: 10, priority: 1, allow_stacking: false }
     ]
@@ -88,16 +86,15 @@ export default function ProductDetail() {
   return (
     <div className="container mx-auto px-4 py-8 space-y-16">
       <SEO 
-        title={mockProduct.name}
+        title={mockProduct.name + " | Omni Hardware"}
         description={mockProduct.description}
         image={mockProduct.images[0]}
       />
       <Link to="/products" className="inline-flex items-center text-slate-400 hover:text-white transition-colors">
-        <ArrowLeft className="mr-2 h-4 w-4" /> Back to Catalog
+        <ArrowLeft className="mr-2 h-4 w-4" /> Back to Shop
       </Link>
 
       <div className="grid md:grid-cols-2 gap-12">
-        {/* Gallery */}
         <div className="space-y-4">
           <Gallery 
             images={mockProduct.images} 
@@ -105,7 +102,6 @@ export default function ProductDetail() {
           />
         </div>
 
-        {/* Details */}
         <div className="space-y-8">
           <div>
             <p className="text-primary-500 font-medium mb-2 uppercase tracking-wider">{mockProduct.category}</p>
@@ -162,28 +158,26 @@ export default function ProductDetail() {
           </div>
 
           <div className="flex items-center gap-2 text-sm text-slate-400 bg-slate-900/50 p-4 rounded-xl border border-slate-800">
-            <Shield className="h-5 w-5 text-indigo-400" />
-            <span>Secure checkout with 30-day money-back guarantee.</span>
+            <Shield className="h-5 w-5 text-primary-500" />
+            <span>30-day money-back guarantee. Lifetime warranty on hand tools.</span>
           </div>
         </div>
       </div>
 
-      {/* Features & Specs */}
       <div className="border-t border-slate-800 pt-16">
-        <h2 className="text-2xl font-bold text-white mb-6">Key Features</h2>
+        <h2 className="text-2xl font-bold text-white mb-6">Specifications</h2>
         <ul className="grid md:grid-cols-2 gap-4">
           {mockProduct.features.map((feat, i) => (
             <li key={i} className="flex items-center gap-3 text-slate-300 bg-slate-900/30 p-4 rounded-lg border border-slate-800/50">
-              <div className="h-2 w-2 rounded-full bg-blue-500 shadow-[0_0_8px_rgba(59,130,246,0.8)]" />
+              <div className="h-2 w-2 rounded-full bg-primary-500 shadow-[0_0_8px_rgba(14,165,233,0.8)]" />
               {feat}
             </li>
           ))}
         </ul>
       </div>
 
-      {/* Related Products */}
       <div className="border-t border-slate-800 pt-16">
-        <h2 className="text-2xl font-bold text-white mb-6">You May Also Like</h2>
+        <h2 className="text-2xl font-bold text-white mb-6">You May Also Need</h2>
         <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-6">
           {mockRelated.map(product => (
             <ProductCard key={product.id} product={product} />

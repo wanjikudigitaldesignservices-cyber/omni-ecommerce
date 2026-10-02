@@ -25,9 +25,9 @@ export default function DesignSystem() {
   return (
     <div className="min-h-screen bg-slate-950 text-white p-8 space-y-24 max-w-7xl mx-auto">
       <header className="mb-12 border-b border-slate-800 pb-8">
-        <h1 className="text-4xl font-bold tracking-tight text-white mb-4">Omni Design System</h1>
+        <h1 className="text-4xl font-bold tracking-tight text-white mb-4">Omni Hardware Design System</h1>
         <p className="text-slate-400 max-w-2xl">
-          Component library adhering to the "Minimal, Technical, Elegant" brand personality.
+          Component library for the hardware store storefront.
           All components are WCAG AA compliant with proper focus states and ARIA attributes.
         </p>
       </header>
@@ -122,9 +122,9 @@ export default function DesignSystem() {
                   selectedId={variant} 
                   onSelect={setVariant} 
                   variants={[
-                    { id: "v1", name: "Matte Black", inStock: true },
-                    { id: "v2", name: "Lunar Silver", inStock: true },
-                    { id: "v3", name: "Midnight Blue", inStock: false },
+                    { id: "v1", name: "Standard Kit", inStock: true },
+                    { id: "v2", name: "Pro Kit", inStock: true },
+                    { id: "v3", name: "Contractor Bundle", inStock: false },
                   ]} 
                 />
               </div>
@@ -143,8 +143,8 @@ export default function DesignSystem() {
             <h3 className="text-lg font-medium text-slate-300 border-b border-slate-800 pb-2">Gallery Motif</h3>
             <div className="max-w-sm">
               <Gallery 
-                altText="Omni Headphones" 
-                images={["/images/headphone.jpg", "/images/laptop.jpg"]} 
+                altText="Power Drill" 
+                images={["/images/power-drill.jpg", "/images/hand-tools.jpg"]} 
               />
             </div>
           </div>
@@ -154,8 +154,8 @@ export default function DesignSystem() {
             <div className="grid md:grid-cols-2 gap-8">
               <EmptyState 
                 title="Your cart is empty" 
-                description="Looks like you haven't added any premium gear to your setup yet." 
-                action={<Button>Explore Products</Button>}
+                description="Looks like you haven't added any tools or supplies yet." 
+                action={<Button>Browse Tools</Button>}
               />
               <ErrorState 
                 message="Failed to load product pricing. Please try again later." 

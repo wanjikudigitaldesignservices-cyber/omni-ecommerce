@@ -5,17 +5,17 @@ import { Input } from "@/components/ui/input"
 import { Button } from "@/components/ui/button"
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select"
 import { ProductCard, StorefrontProduct } from "@/components/storefront/ProductCard"
-
 import { SEO } from "@/components/storefront/SEO"
 
-// Mock catalog data
 const mockCatalog: StorefrontProduct[] = [
-  { id: "1", name: "Sony WH-1000XM5 Noise Cancelling Headphones", slug: "sony-wh-1000xm5", price: 39800, imageUrl: "/hero.jpg", category: "Audio", isNew: true, stock: 45 },
-  { id: "2", name: "MacBook Pro 16-inch (M3 Max)", slug: "macbook-pro-16", price: 349900, imageUrl: "/hero.jpg", category: "Laptops", stock: 12 },
-  { id: "3", name: "Logitech MX Master 3S", slug: "logitech-mx-master-3s", price: 9900, originalPrice: 12900, imageUrl: "/hero.jpg", category: "Accessories", stock: 120 },
-  { id: "4", name: "Keychron Q1 Pro Mechanical Keyboard", slug: "keychron-q1-pro", price: 19900, imageUrl: "/hero.jpg", category: "Accessories", stock: 5 },
-  { id: "5", name: "Apple AirPods Pro (2nd Gen)", slug: "airpods-pro-2", price: 24900, originalPrice: 24900, imageUrl: "/hero.jpg", category: "Audio", stock: 0 },
-  { id: "6", name: "Dell XPS 15", slug: "dell-xps-15", price: 189900, imageUrl: "/hero.jpg", category: "Laptops", stock: 8 },
+  { id: "1", name: "20V MAX Cordless Drill/Driver Kit", slug: "cordless-drill-20v", price: 12900, imageUrl: "/images/power-drill.jpg", category: "Power Tools", isNew: true, stock: 45 },
+  { id: "2", name: "Professional Hammer & Wrench Set (16pc)", slug: "hammer-wrench-set-16pc", price: 8900, imageUrl: "/images/hand-tools.jpg", category: "Hand Tools", stock: 120 },
+  { id: "3", name: "Premium Interior Paint - Matte Finish (1 Gal)", slug: "premium-interior-paint", price: 4500, originalPrice: 5900, imageUrl: "/images/paint-supplies.jpg", category: "Paint & Supplies", stock: 200 },
+  { id: "4", name: "Heavy Duty Circular Saw 7-1/4\"", slug: "circular-saw-7", price: 15900, imageUrl: "/images/hero.jpg", category: "Power Tools", stock: 18 },
+  { id: "5", name: "100-Piece Screwdriver & Bit Set", slug: "screwdriver-bit-set-100", price: 3400, originalPrice: 4500, imageUrl: "/images/hand-tools.jpg", category: "Hand Tools", stock: 85 },
+  { id: "6", name: "1/2\" PEX Pipe Cutter & Fittings Kit", slug: "pex-pipe-cutter-kit", price: 2900, imageUrl: "/images/power-drill.jpg", category: "Plumbing", stock: 0 },
+  { id: "7", name: "Exterior Weather Shield Paint (5 Gal)", slug: "exterior-weather-shield-5gal", price: 18900, imageUrl: "/images/paint-supplies.jpg", category: "Paint & Supplies", isNew: true, stock: 32 },
+  { id: "8", name: "18-Gauge Brad Nailer (Pneumatic)", slug: "brad-nailer-18gauge", price: 9900, imageUrl: "/images/power-drill.jpg", category: "Power Tools", stock: 22 },
 ]
 
 export default function Catalog() {
@@ -25,13 +25,11 @@ export default function Catalog() {
   const [currentPage, setCurrentPage] = useState(1)
   const itemsPerPage = 8
 
-  // Filter & Sort Logic
   const filteredProducts = useMemo(() => {
     let result = [...mockCatalog]
 
     if (searchQuery) {
       const q = searchQuery.toLowerCase()
-      // Basic typo tolerance could be implemented using string distance libs, here we use simple includes
       result = result.filter(p => p.name.toLowerCase().includes(q) || p.category.toLowerCase().includes(q))
     }
 
@@ -60,34 +58,35 @@ export default function Catalog() {
   return (
     <div className="container mx-auto px-4 py-12">
       <SEO 
-        title={categoryFilter !== 'all' ? `${categoryFilter.charAt(0).toUpperCase() + categoryFilter.slice(1)} | Nexus` : "Shop All | Nexus"}
-        description="Browse our curated collection of premium technology products."
+        title={categoryFilter !== 'all' ? `${categoryFilter.charAt(0).toUpperCase() + categoryFilter.slice(1)} | Omni Hardware` : "Shop All | Omni Hardware"}
+        description="Browse our full catalog of tools, paint, plumbing, and building supplies."
       />
       <div className="flex flex-col md:flex-row justify-between items-end mb-10 gap-6">
         <div>
-          <h1 className="text-4xl font-bold tracking-tight text-white mb-2">The Catalog</h1>
-          <p className="text-slate-400">Discover premium tech equipment.</p>
+          <h1 className="text-4xl font-bold tracking-tight text-white mb-2">Shop Hardware</h1>
+          <p className="text-slate-400">Professional-grade tools and building supplies.</p>
         </div>
         
         <div className="flex flex-wrap items-center gap-4 w-full md:w-auto">
           <div className="relative flex-1 md:w-64">
             <Search className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-slate-400" />
             <Input 
-              placeholder="Search products..." 
+              placeholder="Search tools, paint, plumbing..." 
               value={searchQuery}
               onChange={(e) => setSearchQuery(e.target.value)}
               className="pl-9 bg-slate-900/50 border-slate-700 text-white"
             />
           </div>
           <Select value={categoryFilter} onValueChange={setCategoryFilter}>
-            <SelectTrigger className="w-[140px] bg-slate-900/50 border-slate-700 text-white">
+            <SelectTrigger className="w-[160px] bg-slate-900/50 border-slate-700 text-white">
               <SelectValue placeholder="Category" />
             </SelectTrigger>
             <SelectContent>
               <SelectItem value="all">All Categories</SelectItem>
-              <SelectItem value="audio">Audio</SelectItem>
-              <SelectItem value="laptops">Laptops</SelectItem>
-              <SelectItem value="accessories">Accessories</SelectItem>
+              <SelectItem value="power tools">Power Tools</SelectItem>
+              <SelectItem value="hand tools">Hand Tools</SelectItem>
+              <SelectItem value="paint & supplies">Paint & Supplies</SelectItem>
+              <SelectItem value="plumbing">Plumbing</SelectItem>
             </SelectContent>
           </Select>
           <Select value={sortBy} onValueChange={setSortBy}>
@@ -124,7 +123,6 @@ export default function Catalog() {
         </motion.div>
       )}
 
-      {/* Pagination */}
       {totalPages > 1 && (
         <div className="flex items-center justify-center space-x-2 mt-12">
           <Button 

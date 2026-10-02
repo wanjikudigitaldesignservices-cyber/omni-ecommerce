@@ -1,88 +1,179 @@
--- SEED DATA for Phase 1A
+-- Seed data for Omni Hardware Store
+-- Run after migrations
 
--- 1. Roles
+-- 1. ROLES
 INSERT INTO roles (name, description) VALUES
-('Super Admin', 'Full access to all system features and settings'),
-('Admin', 'Access to most features, cannot manage super admins'),
-('Inventory Manager', 'Can manage products, variants, and stock levels'),
-('Order Manager', 'Can view and process orders and returns'),
-('Content Editor', 'Can manage categories, brands, and page content'),
-('Support', 'Read-only access to orders and customer data');
+  ('Super Admin', 'Full system access'),
+  ('Admin', 'Administrative access'),
+  ('Inventory Manager', 'Manages stock levels and purchase orders'),
+  ('Order Manager', 'Processes and fulfills orders'),
+  ('Content Editor', 'Manages product content and categories'),
+  ('Support', 'Customer support access');
 
--- 2. Permissions (Examples)
+-- 2. PERMISSIONS
 INSERT INTO permissions (action, resource) VALUES
-('manage', 'all'),
-('read', 'orders'),
-('write', 'orders'),
-('read', 'products'),
-('write', 'products'),
-('read', 'inventory'),
-('write', 'inventory');
+  ('create', 'products'), ('read', 'products'), ('update', 'products'), ('delete', 'products'),
+  ('create', 'orders'), ('read', 'orders'), ('update', 'orders'),
+  ('create', 'inventory'), ('read', 'inventory'), ('update', 'inventory'),
+  ('read', 'analytics'), ('manage', 'settings'), ('manage', 'staff');
 
--- 3. Map Roles to Permissions (Super Admin gets manage all)
-DO $$
-DECLARE
-    super_admin_id UUID;
-    manage_all_id UUID;
-BEGIN
-    SELECT id INTO super_admin_id FROM roles WHERE name = 'Super Admin';
-    SELECT id INTO manage_all_id FROM permissions WHERE action = 'manage' AND resource = 'all';
-    
-    INSERT INTO role_permissions (role_id, permission_id) VALUES (super_admin_id, manage_all_id);
-END $$;
+-- 3. CATEGORIES (Hardware Store)
+INSERT INTO categories (name, slug, description) VALUES
+  ('Power Tools', 'power-tools', 'Drills, saws, grinders, and sanders'),
+  ('Hand Tools', 'hand-tools', 'Hammers, wrenches, screwdrivers, and pliers'),
+  ('Paint & Supplies', 'paint-supplies', 'Interior and exterior paint, brushes, rollers, and drop cloths'),
+  ('Plumbing', 'plumbing', 'Pipes, fittings, faucets, and repair kits'),
+  ('Electrical', 'electrical', 'Wiring, outlets, switches, and circuit breakers'),
+  ('Fasteners', 'fasteners', 'Screws, nails, bolts, and anchors'),
+  ('Safety Gear', 'safety-gear', 'Gloves, goggles, hard hats, and ear protection'),
+  ('Building Materials', 'building-materials', 'Lumber, drywall, insulation, and concrete');
 
--- 4. Sample Categories
-INSERT INTO categories (id, name, slug, description) VALUES
-('c0000000-0000-0000-0000-000000000001', 'Audio', 'audio', 'Headphones, speakers, and audio equipment'),
-('c0000000-0000-0000-0000-000000000002', 'Laptops', 'laptops', 'High-performance laptops for work and gaming'),
-('c0000000-0000-0000-0000-000000000003', 'Accessories', 'accessories', 'Cables, chargers, and peripherals');
+-- 4. BRANDS
+INSERT INTO brands (name, slug, logo_url) VALUES
+  ('DeWalt', 'dewalt', NULL),
+  ('Milwaukee', 'milwaukee', NULL),
+  ('Makita', 'makita', NULL),
+  ('Stanley', 'stanley', NULL),
+  ('Bosch', 'bosch', NULL),
+  ('Rust-Oleum', 'rust-oleum', NULL),
+  ('SharkBite', 'sharkbite', NULL),
+  ('Simpson Strong-Tie', 'simpson-strong-tie', NULL);
 
--- 5. Sample Brands
-INSERT INTO brands (id, name, slug) VALUES
-('b0000000-0000-0000-0000-000000000001', 'Sony', 'sony'),
-('b0000000-0000-0000-0000-000000000002', 'Apple', 'apple'),
-('b0000000-0000-0000-0000-000000000003', 'Logitech', 'logitech');
+-- 5. PRODUCTS
+INSERT INTO products (name, slug, description, status, category_id, brand_id)
+SELECT 'Cordless Drill/Driver Kit 20V MAX', 'cordless-drill-20v', 
+  'Professional 20V MAX lithium-ion cordless drill/driver. Two-speed transmission for fastening and drilling. Includes 2 batteries, charger, and bag.',
+  'published', c.id, b.id
+FROM categories c, brands b WHERE c.slug = 'power-tools' AND b.slug = 'dewalt';
 
--- 6. Sample Products
-INSERT INTO products (id, category_id, brand_id, name, slug, description, status) VALUES
-('p0000000-0000-0000-0000-000000000001', 'c0000000-0000-0000-0000-000000000001', 'b0000000-0000-0000-0000-000000000001', 'Sony WH-1000XM5 Noise Cancelling Headphones', 'sony-wh-1000xm5', 'Industry-leading noise cancellation with auto NC optimizer.', 'published'),
-('p0000000-0000-0000-0000-000000000002', 'c0000000-0000-0000-0000-000000000002', 'b0000000-0000-0000-0000-000000000002', 'MacBook Pro 16-inch (M3 Max)', 'macbook-pro-16-m3-max', 'The most advanced Mac ever built for professionals.', 'published'),
-('p0000000-0000-0000-0000-000000000003', 'c0000000-0000-0000-0000-000000000003', 'b0000000-0000-0000-0000-000000000003', 'Logitech MX Master 3S Wireless Mouse', 'logitech-mx-master-3s', 'An iconic mouse remastered for ultimate tactile feel and performance.', 'published');
+INSERT INTO products (name, slug, description, status, category_id, brand_id)
+SELECT 'Professional Hammer & Wrench Set (16pc)', 'hammer-wrench-set-16pc',
+  'Complete 16-piece set including 20oz claw hammer, 6 combination wrenches, needle-nose pliers, adjustable wrench, and more. Chrome vanadium steel.',
+  'published', c.id, b.id
+FROM categories c, brands b WHERE c.slug = 'hand-tools' AND b.slug = 'stanley';
 
--- 7. Sample Variants
-INSERT INTO product_variants (id, product_id, sku, barcode, price, name) VALUES
-('v0000000-0000-0000-0000-000000000001', 'p0000000-0000-0000-0000-000000000001', 'SONY-WH5-BLK', '4548736132912', 39800, 'Black'), -- $398.00
-('v0000000-0000-0000-0000-000000000002', 'p0000000-0000-0000-0000-000000000001', 'SONY-WH5-SLV', '4548736132929', 39800, 'Silver'),
-('v0000000-0000-0000-0000-000000000003', 'p0000000-0000-0000-0000-000000000002', 'MBP-16-M3M-1TB-SLV', '194253329188', 349900, 'Silver / 1TB'), -- $3499.00
-('v0000000-0000-0000-0000-000000000004', 'p0000000-0000-0000-0000-000000000003', 'LOGI-MX3S-GRY', '097855172235', 9900, 'Pale Grey'); -- $99.00
+INSERT INTO products (name, slug, description, status, category_id, brand_id)
+SELECT 'Premium Interior Paint - Matte Finish (1 Gal)', 'premium-interior-paint',
+  'Ultra-premium interior latex paint with excellent coverage and hide. Zero VOC, low odor formula. Washable matte finish.',
+  'published', c.id, b.id
+FROM categories c, brands b WHERE c.slug = 'paint-supplies' AND b.slug = 'rust-oleum';
 
--- 8. Sample Images (Mock URLs)
-INSERT INTO product_images (product_id, variant_id, url, alt_text, is_primary) VALUES
-('p0000000-0000-0000-0000-000000000001', 'v0000000-0000-0000-0000-000000000001', 'https://example.com/images/sony-wh1000xm5-black.jpg', 'Sony WH-1000XM5 in Black', TRUE),
-('p0000000-0000-0000-0000-000000000001', 'v0000000-0000-0000-0000-000000000002', 'https://example.com/images/sony-wh1000xm5-silver.jpg', 'Sony WH-1000XM5 in Silver', FALSE),
-('p0000000-0000-0000-0000-000000000002', 'v0000000-0000-0000-0000-000000000003', 'https://example.com/images/macbook-pro-16-silver.jpg', 'MacBook Pro 16-inch Silver Front View', TRUE),
-('p0000000-0000-0000-0000-000000000003', 'v0000000-0000-0000-0000-000000000004', 'https://example.com/images/logitech-mx3s-grey.jpg', 'Logitech MX Master 3S Mouse', TRUE);
+INSERT INTO products (name, slug, description, status, category_id, brand_id)
+SELECT 'Heavy Duty Circular Saw 7-1/4"', 'circular-saw-7',
+  '15 Amp, 7-1/4-inch circular saw with 5800 RPM motor. Magnesium shoe for durability and reduced weight. 56-degree bevel capacity.',
+  'published', c.id, b.id
+FROM categories c, brands b WHERE c.slug = 'power-tools' AND b.slug = 'makita';
 
--- 9. Sample Locations & Stock
-INSERT INTO locations (id, name, address) VALUES
-('l0000000-0000-0000-0000-000000000001', 'Main Warehouse', '123 Commerce St, Seattle, WA 98101');
+INSERT INTO products (name, slug, description, status, category_id, brand_id)
+SELECT '100-Piece Screwdriver & Bit Set', 'screwdriver-bit-set-100',
+  'Comprehensive 100-piece set with magnetic screwdrivers, precision bits, hex keys, and nut drivers. Chrome vanadium construction.',
+  'published', c.id, b.id
+FROM categories c, brands b WHERE c.slug = 'hand-tools' AND b.slug = 'stanley';
 
-INSERT INTO stock_levels (variant_id, location_id, on_hand, reserved) VALUES
-('v0000000-0000-0000-0000-000000000001', 'l0000000-0000-0000-0000-000000000001', 50, 2),
-('v0000000-0000-0000-0000-000000000002', 'l0000000-0000-0000-0000-000000000001', 15, 0),
-('v0000000-0000-0000-0000-000000000003', 'l0000000-0000-0000-0000-000000000001', 5, 1),
-('v0000000-0000-0000-0000-000000000004', 'l0000000-0000-0000-0000-000000000001', 120, 5);
+INSERT INTO products (name, slug, description, status, category_id, brand_id)
+SELECT '1/2" PEX Pipe Cutter & Fittings Kit', 'pex-pipe-cutter-kit',
+  'Push-to-connect PEX fitting kit with pipe cutter. Includes elbows, tees, couplings, and transition fittings. No special tools required.',
+  'published', c.id, b.id
+FROM categories c, brands b WHERE c.slug = 'plumbing' AND b.slug = 'sharkbite';
 
--- 10. Ledger setup
-INSERT INTO stock_movements (variant_id, location_id, quantity, reason, note) VALUES
-('v0000000-0000-0000-0000-000000000001', 'l0000000-0000-0000-0000-000000000001', 50, 'received', 'Initial stock setup'),
-('v0000000-0000-0000-0000-000000000002', 'l0000000-0000-0000-0000-000000000001', 15, 'received', 'Initial stock setup'),
-('v0000000-0000-0000-0000-000000000003', 'l0000000-0000-0000-0000-000000000001', 5, 'received', 'Initial stock setup'),
-('v0000000-0000-0000-0000-000000000004', 'l0000000-0000-0000-0000-000000000001', 120, 'received', 'Initial stock setup');
+INSERT INTO products (name, slug, description, status, category_id, brand_id)
+SELECT 'Exterior Weather Shield Paint (5 Gal)', 'exterior-weather-shield-5gal',
+  'Advanced exterior paint with built-in primer. UV and weather resistant. Excellent adhesion on wood, brick, stucco, and vinyl siding.',
+  'published', c.id, b.id
+FROM categories c, brands b WHERE c.slug = 'paint-supplies' AND b.slug = 'rust-oleum';
 
--- 11. Super Admin User
-INSERT INTO auth.users (id, email, encrypted_password, email_confirmed_at, raw_app_meta_data, raw_user_meta_data) VALUES
-('u0000000-0000-0000-0000-000000000001', 'admin@example.com', '$2a$10$wU0M/0g7.o0X4z0P6t5e5u0M/0g7.o0X4z0P6t5e5u0M/0g7.o0X', NOW(), '{"provider":"email","providers":["email"]}', '{}');
+INSERT INTO products (name, slug, description, status, category_id, brand_id)
+SELECT '18-Gauge Brad Nailer (Pneumatic)', 'brad-nailer-18gauge',
+  'Pneumatic 18-gauge brad nailer for trim, molding, and light carpentry. Adjustable depth of drive. Fires 5/8" to 2" brad nails.',
+  'published', c.id, b.id
+FROM categories c, brands b WHERE c.slug = 'power-tools' AND b.slug = 'dewalt';
 
-INSERT INTO profiles (id, role_id, first_name, last_name) VALUES
-('u0000000-0000-0000-0000-000000000001', (SELECT id FROM roles WHERE name = 'Super Admin'), 'Super', 'Admin');
+-- 6. PRODUCT VARIANTS
+INSERT INTO product_variants (product_id, sku, price, compare_at_price, name)
+SELECT p.id, 'DW-DRILL-STD', 12900, NULL, 'Standard Kit'
+FROM products p WHERE p.slug = 'cordless-drill-20v';
+
+INSERT INTO product_variants (product_id, sku, price, compare_at_price, name)
+SELECT p.id, 'DW-DRILL-PRO', 19900, NULL, 'Pro Kit (w/ Impact Driver)'
+FROM products p WHERE p.slug = 'cordless-drill-20v';
+
+INSERT INTO product_variants (product_id, sku, price, compare_at_price, name)
+SELECT p.id, 'ST-HAMWRN-16', 8900, NULL, 'Standard'
+FROM products p WHERE p.slug = 'hammer-wrench-set-16pc';
+
+INSERT INTO product_variants (product_id, sku, price, compare_at_price, name)
+SELECT p.id, 'RO-PAINT-INT-1G', 4500, 5900, 'Warm White'
+FROM products p WHERE p.slug = 'premium-interior-paint';
+
+INSERT INTO product_variants (product_id, sku, price, compare_at_price, name)
+SELECT p.id, 'RO-PAINT-INT-1G-GRY', 4500, 5900, 'Slate Gray'
+FROM products p WHERE p.slug = 'premium-interior-paint';
+
+INSERT INTO product_variants (product_id, sku, price, compare_at_price, name)
+SELECT p.id, 'MK-CSAW-7', 15900, NULL, 'Standard'
+FROM products p WHERE p.slug = 'circular-saw-7';
+
+INSERT INTO product_variants (product_id, sku, price, compare_at_price, name)
+SELECT p.id, 'ST-SCRW-100', 3400, 4500, 'Standard'
+FROM products p WHERE p.slug = 'screwdriver-bit-set-100';
+
+INSERT INTO product_variants (product_id, sku, price, compare_at_price, name)
+SELECT p.id, 'SB-PEX-KIT', 2900, NULL, 'Standard'
+FROM products p WHERE p.slug = 'pex-pipe-cutter-kit';
+
+INSERT INTO product_variants (product_id, sku, price, compare_at_price, name)
+SELECT p.id, 'RO-PAINT-EXT-5G', 18900, NULL, 'Pure White'
+FROM products p WHERE p.slug = 'exterior-weather-shield-5gal';
+
+INSERT INTO product_variants (product_id, sku, price, compare_at_price, name)
+SELECT p.id, 'DW-NAILER-18G', 9900, NULL, 'Standard'
+FROM products p WHERE p.slug = 'brad-nailer-18gauge';
+
+-- 7. LOCATIONS
+INSERT INTO locations (name, address) VALUES
+  ('Main Warehouse', '1200 Industrial Blvd, Nairobi, Kenya'),
+  ('Downtown Store', '450 Kenyatta Avenue, Nairobi, Kenya');
+
+-- 8. STOCK LEVELS (all at main warehouse)
+INSERT INTO stock_levels (variant_id, location_id, on_hand, reserved, low_stock_threshold)
+SELECT pv.id, l.id, 
+  CASE 
+    WHEN pv.sku = 'DW-DRILL-STD' THEN 30
+    WHEN pv.sku = 'DW-DRILL-PRO' THEN 15
+    WHEN pv.sku = 'ST-HAMWRN-16' THEN 120
+    WHEN pv.sku LIKE 'RO-PAINT-INT%' THEN 100
+    WHEN pv.sku = 'MK-CSAW-7' THEN 18
+    WHEN pv.sku = 'ST-SCRW-100' THEN 85
+    WHEN pv.sku = 'SB-PEX-KIT' THEN 0
+    WHEN pv.sku = 'RO-PAINT-EXT-5G' THEN 32
+    WHEN pv.sku = 'DW-NAILER-18G' THEN 22
+    ELSE 50
+  END, 0, 5
+FROM product_variants pv, locations l WHERE l.name = 'Main Warehouse';
+
+-- 9. SHIPPING ZONES
+INSERT INTO shipping_zones (name, countries) VALUES
+  ('Kenya', '["KE"]'::jsonb),
+  ('East Africa', '["KE","UG","TZ","RW"]'::jsonb);
+
+-- 10. SHIPPING RATES
+INSERT INTO shipping_rates (zone_id, name, price, min_order_value) 
+SELECT sz.id, 'Standard Delivery (3-5 days)', 500, NULL
+FROM shipping_zones sz WHERE sz.name = 'Kenya';
+
+INSERT INTO shipping_rates (zone_id, name, price, min_order_value) 
+SELECT sz.id, 'Free Delivery', 0, 15000
+FROM shipping_zones sz WHERE sz.name = 'Kenya';
+
+INSERT INTO shipping_rates (zone_id, name, price, min_order_value) 
+SELECT sz.id, 'Express Delivery (1-2 days)', 1500, NULL
+FROM shipping_zones sz WHERE sz.name = 'Kenya';
+
+-- 11. SETTINGS
+INSERT INTO settings (key, value) VALUES
+  ('store_name', '"Omni Hardware"'::jsonb),
+  ('store_currency', '"KES"'::jsonb),
+  ('store_timezone', '"Africa/Nairobi"'::jsonb),
+  ('tax_rate', '16'::jsonb),
+  ('low_stock_alert_enabled', 'true'::jsonb),
+  ('low_stock_threshold_default', '5'::jsonb);

@@ -7,7 +7,7 @@ export default function StorefrontLayout() {
     <div className="min-h-screen flex flex-col bg-slate-950 text-white selection:bg-primary-500/30 selection:text-white">
       {/* Announcement Bar */}
       <div className="bg-primary-500 text-white text-xs font-medium py-2 px-4 text-center">
-        Free premium shipping on all orders over $200. <Link to="/products" className="underline underline-offset-2 hover:text-white/80">Shop Now</Link>
+        Free jobsite delivery on orders over $150. <Link to="/products" className="underline underline-offset-2 hover:text-white/80">Shop Now</Link>
       </div>
 
       {/* Navigation Header */}
@@ -19,13 +19,13 @@ export default function StorefrontLayout() {
             </button>
             <Link to="/" className="flex items-center gap-3 group">
               <img src="/brand/logo-icon.svg" alt="Omni Logo" className="h-8 w-8" />
-              <span className="text-xl font-bold tracking-tight text-white group-hover:text-primary-400 transition-colors">OMNI</span>
+              <span className="text-xl font-bold tracking-tight text-white group-hover:text-primary-400 transition-colors">OMNI HARDWARE</span>
             </Link>
             
             <nav className="hidden md:flex items-center gap-6 ml-6">
               <Link to="/products" className="text-sm font-medium text-slate-300 hover:text-white transition-colors">Shop</Link>
-              <Link to="/products" className="text-sm font-medium text-slate-300 hover:text-white transition-colors">Audio</Link>
-              <Link to="/products" className="text-sm font-medium text-slate-300 hover:text-white transition-colors">Workspace</Link>
+              <Link to="/products" className="text-sm font-medium text-slate-300 hover:text-white transition-colors">Power Tools</Link>
+              <Link to="/products" className="text-sm font-medium text-slate-300 hover:text-white transition-colors">Paint & Supplies</Link>
               <Link to="/design-system" className="text-sm font-medium text-primary-500 hover:text-primary-400 transition-colors">Design System</Link>
             </nav>
           </div>
@@ -55,16 +55,16 @@ export default function StorefrontLayout() {
               <img src="/brand/logo-mono-dark.svg" alt="Omni Logo" className="h-8 brightness-0 invert opacity-50" />
             </div>
             <p className="text-sm text-slate-400 leading-relaxed">
-              Premium tech, minimal design, maximum performance.
+              Professional-grade tools, hardware & building supplies since 2020.
             </p>
           </div>
           <div>
             <h4 className="font-semibold mb-4 text-white">Shop</h4>
             <ul className="space-y-2 text-sm text-slate-400">
               <li><Link to="/products" className="hover:text-primary-400 transition-colors">All Products</Link></li>
-              <li><Link to="/products" className="hover:text-primary-400 transition-colors">Laptops</Link></li>
-              <li><Link to="/products" className="hover:text-primary-400 transition-colors">Audio</Link></li>
-              <li><Link to="/products" className="hover:text-primary-400 transition-colors">Accessories</Link></li>
+              <li><Link to="/products" className="hover:text-primary-400 transition-colors">Power Tools</Link></li>
+              <li><Link to="/products" className="hover:text-primary-400 transition-colors">Hand Tools</Link></li>
+              <li><Link to="/products" className="hover:text-primary-400 transition-colors">Paint & Supplies</Link></li>
             </ul>
           </div>
           <div>
@@ -84,7 +84,7 @@ export default function StorefrontLayout() {
           </div>
         </div>
         <div className="container mx-auto px-4 mt-12 pt-8 border-t border-slate-800/50 flex flex-col md:flex-row items-center justify-between text-xs text-slate-500">
-          <p>© 2026 Omni. All rights reserved.</p>
+          <p>© 2026 Omni Hardware. All rights reserved.</p>
           <div className="flex gap-4 mt-4 md:mt-0">
             <span>Designed with Precision</span>
           </div>
