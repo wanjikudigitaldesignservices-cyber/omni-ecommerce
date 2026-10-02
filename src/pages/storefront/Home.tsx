@@ -24,9 +24,9 @@ export default function Home() {
       {/* Hero Section */}
       <section className="relative h-[80vh] flex items-center justify-center overflow-hidden">
         <div className="absolute inset-0 z-0">
-          <img src="/images/hero.jpg" alt="Workshop workbench with tools" className="w-full h-full object-cover opacity-50" />
-          <div className="absolute inset-0 bg-slate-950/70 mix-blend-multiply" />
-          <div className="absolute inset-0 bg-gradient-to-t from-slate-950 via-slate-950/50 to-transparent" />
+          <img src="/images/hero.jpg" alt="Hardware store interior" className="w-full h-full object-cover opacity-80" />
+          <div className="absolute inset-0 bg-slate-950/30" />
+          <div className="absolute inset-0 bg-gradient-to-t from-slate-950 via-transparent to-transparent" />
         </div>
         
         <div className="container relative z-10 mx-auto px-4 text-center">
